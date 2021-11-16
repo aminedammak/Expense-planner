@@ -34,6 +34,9 @@ class MyHomePage extends StatelessWidget {
     ),
   ];
 
+  final titleController = TextEditingController();
+  final amoutCountroller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -52,17 +55,47 @@ class MyHomePage extends StatelessWidget {
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
           Column(
-        mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
             width: double.infinity,
-            height: 200,
+            height: 50,
             child: const Card(
               child: Text('Charts'),
               elevation: 5,
-              color: Colors.red,
             ),
+          ),
+          Column(
+            children: [
+              Card(
+                color: Colors.grey,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(labelText: "Title"),
+                        controller: titleController,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: "Amount"),
+                        controller: amoutCountroller,
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          print(titleController.text);
+                        },
+                        child: Text(
+                          "Add Transaction",
+                          style: TextStyle(color: Colors.purple),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           Column(
             children: transactions.map((tx) {
@@ -99,7 +132,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          DateFormat().format(tx.date),
+                          DateFormat().add_yMMMd().format(tx.date),
                           style: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,
