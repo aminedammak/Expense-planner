@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import "./transaction.dart";
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -68,7 +67,48 @@ class MyHomePage extends StatelessWidget {
           Column(
             children: transactions.map((tx) {
               return Card(
-                child: Text(tx.title),
+                child: Row(
+                  children: [
+                    Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.purple,
+                          width: 2,
+                        ),
+                      ),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "\$${tx.amount}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.purple,
+                            fontSize: 20),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tx.title,
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          DateFormat().format(tx.date),
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               );
             }).toList(),
           )
